@@ -1,16 +1,16 @@
 from Car import Car
+from GameUpdate import draw_car
+from Constants import *
 import numpy as np
 import pygame
 
 run = True # The state of the game
 car = Car(pos = np.array([0, 0]))
-WIDTH = 700
-HEIGHT = 700
 
 pygame.init()
 clock = pygame.time.Clock() # The clock or the update speed of the game
 display = pygame.display.set_caption("Car Learns to drive")
-windows = pygame.display.set_mode((WIDTH, HEIGHT))
+windows = pygame.display.set_mode((WINDOWS_WIDTH, WINDOWS_HEIGHT))
 FPS = 30
 
 while run: # Game Loop
@@ -25,5 +25,7 @@ while run: # Game Loop
         car.move_front()
 
     windows.fill((255,255,255)) # Drawing the background
+    draw_car(car, windows)
+
     pygame.display.update()
     pygame.display.flip()
