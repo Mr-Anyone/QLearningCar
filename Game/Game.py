@@ -5,11 +5,11 @@ import numpy as np
 import pygame
 
 run = True # The state of the game
-car = Car(pos = np.array([0, 0]))
+car = Car(pos = np.array([WINDOWS_WIDTH/2, WINDOWS_HEIGHT/2]))
 
 pygame.init()
 clock = pygame.time.Clock() # The clock or the update speed of the game
-display = pygame.display.set_caption("Car Learns to drive")
+display = pygame.display.set_caption("AI Leans to drive")
 windows = pygame.display.set_mode((WINDOWS_WIDTH, WINDOWS_HEIGHT))
 FPS = 30
 
@@ -24,6 +24,13 @@ while run: # Game Loop
     if keys[pygame.K_w]:
         car.move_front()
 
+    if keys[pygame.K_a]:
+        car.turn_left()
+
+    if keys[pygame.K_s]:
+        car.move_backward()
+
+    print(car.current_degree)
     windows.fill((255,255,255)) # Drawing the background
     draw_car(car, windows)
 
