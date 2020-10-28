@@ -7,6 +7,7 @@ class Car():
         self.pos = np.array(pos)
 
         self.vel = 10
+        self.current_degree = 0
         self.angular_velocity = 5
 
     def move_front(self):
@@ -21,8 +22,16 @@ class Car():
         """
         return self.pos
 
-    def trun(self, degree):
-        pass
+    def trun_left(self):
+        """
+        Turning to the left
+        :param degree:
+        :return:
+        """
+
+        self.current_degree += self.vel
+        self.pos = np.array([(np.cos(self.current_degree) * self.angular_velocity) + self.pos[0],
+                             (np.sin(self.current_degree) * self.angular_velocity) + self.pos[1]])
 
     def change_default_value(self, vel=10, angular_velocity=5):
         """
@@ -34,3 +43,6 @@ class Car():
         """
         self.vel = vel
         self.angular = angular_velocity
+
+    def get_current_degree(self):
+        return self.current_degree
