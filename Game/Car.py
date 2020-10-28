@@ -6,15 +6,25 @@ class Car():
         # These are the car parameters
         self.pos = np.array(pos)
 
-        self.vel = 10
+        self.speed = 10
+        self.vel = np.array([0, -self.speed]) # Moving 10 from each side
+
         self.current_degree = 0
-        self.angular_velocity = 5
+        self.angular_velocity = 1
 
     def move_front(self):
         """
-        :return: Move the car forward and stuff
+        Move the car forward and stuff
+        :return: None
         """
         self.pos += self.vel
+
+    def move_backward(self):
+        """
+        Move Backward
+        :return: None
+        """
+        self.pos -= self.vel
 
     def show_pos(self):
         """
@@ -22,16 +32,16 @@ class Car():
         """
         return self.pos
 
-    def trun_left(self):
+    def turn_left(self):
         """
         Turning to the left
         :param degree:
         :return:
         """
 
-        self.current_degree += self.vel
-        self.pos = np.array([(np.cos(self.current_degree) * self.angular_velocity) + self.pos[0],
-                             (np.sin(self.current_degree) * self.angular_velocity) + self.pos[1]])
+        self.current_degree += self.angular_velocity
+        self.vel =  np.array([np.cos(self.current_degree) * self.speed, np.sin(self.current_degree) * self.speed])
+        self.pos += self.vel
 
     def change_default_value(self, vel=10, angular_velocity=5):
         """
@@ -44,5 +54,3 @@ class Car():
         self.vel = vel
         self.angular = angular_velocity
 
-    def get_current_degree(self):
-        return self.current_degree
