@@ -10,7 +10,7 @@ class Car():
         self.vel = np.array([0, -self.speed]) # Moving 10 from each side
 
         self.current_degree = 0
-        self.angular_velocity = 5
+        self.angular_velocity = 8
 
     def move_front(self):
         """
@@ -39,9 +39,20 @@ class Car():
         :return:
         """
 
+        self.current_degree -= self.angular_velocity
+        self.vel = np.array([np.cos(self.current_degree * np.pi / 180) * self.speed,
+                             np.sin(self.current_degree * np.pi / 180) * self.speed])
+
+    def turn_right(self):
+        """
+        The math for turning right
+        :return:
+        """
+
         self.current_degree += self.angular_velocity
-        self.vel =  np.array([np.cos(self.current_degree * np.pi/180) * self.speed, np.sin(self.current_degree* np.pi/180) * self.speed])
-        self.pos += self.vel
+        self.vel = np.array([np.cos(self.current_degree * np.pi / 180) * self.speed,
+                             np.sin(self.current_degree * np.pi / 180) * self.speed])
+
 
     def change_default_value(self, vel=10, angular_velocity=5):
         """

@@ -30,6 +30,9 @@ while run: # Game Loop
     if keys[pygame.K_s]:
         car.move_backward()
 
+    if keys[pygame.K_d]:
+        car.turn_right()
+
     windows.fill((255,255,255)) # Drawing the background
     draw_car(car, windows)
 
