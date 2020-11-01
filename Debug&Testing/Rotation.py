@@ -7,28 +7,26 @@ from Constants import *
 
 
 def rotation(degree, vet):
-    radian= degree * np.pi/180
-    rotation_matrix = np.array([[
-        np.cos(radian) , -np.sin(radian)# Degree to radian
-    ], [
-        np.sin(radian) , np.cos(radian)
-    ]])
+    radian = degree * np.pi / 180
+    rotation_matrix = np.array([[np.cos(radian), -np.sin(radian)],  # Degree to radian
+                                [np.sin(radian), np.cos(radian)]])
 
     return np.matmul(rotation_matrix, vet.T)
 
-vector = np.array([10,5])
-B = vector + np.array([BOX_WIDTH/2, -BOX_HEIGHT/2]) # B Point the vector space in terms of orgin reference
-C = vector + np.array([-BOX_WIDTH/2, -BOX_HEIGHT/2])
+
+vector = np.array([90, 0])
+B = vector + np.array([BOX_WIDTH / 2, -BOX_HEIGHT / 2])  # B Point the vector space in terms of orgin reference
+C = vector + np.array([-BOX_WIDTH / 2, -BOX_HEIGHT / 2])
 
 all_vector = np.array([vector])
 b_rotation_matrix = np.array([B])
 c_rotation_matrix = np.array([C])
 
-rotations = np.linspace(0, 90, 2)
+rotations = np.linspace(0, 90, 200)
 
 for angle in rotations:
     # all_vector = np.append(all_vector , rotation(angle, vector))
-    b_rotation_matrix = np.append(b_rotation_matrix, rotation(angle, B)) # Rotation definition in terms of B
+    b_rotation_matrix = np.append(b_rotation_matrix, rotation(angle, B))  # Rotation definition in terms of B
     c_rotation_matrix = np.append(c_rotation_matrix, rotation(angle, C))
 
 # all_vector = all_vector.reshape(len(rotations) +1, 2)

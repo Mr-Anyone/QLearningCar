@@ -1,5 +1,6 @@
 import numpy as np
-
+from Constants import *
+from utils import rotation
 
 class Car():
     def __init__(self, pos):
@@ -7,7 +8,7 @@ class Car():
         self.pos = np.array(pos)
 
         self.speed = 10
-        self.vel = np.array([0, -self.speed]) # Moving 10 from each side
+        self.vel = np.array([self.speed, 0])  # Moving 10 from each side
 
         self.current_degree = 0
         self.angular_velocity = 8
@@ -26,11 +27,6 @@ class Car():
         """
         self.pos -= self.vel
 
-    def show_pos(self):
-        """
-        :return: the position of the car
-        """
-        return self.pos
 
     def turn_left(self):
         """
@@ -53,7 +49,6 @@ class Car():
         self.vel = np.array([np.cos(self.current_degree * np.pi / 180) * self.speed,
                              np.sin(self.current_degree * np.pi / 180) * self.speed])
 
-
     def change_default_value(self, vel=10, angular_velocity=5):
         """
         Changing the default value of things in the program
@@ -65,3 +60,16 @@ class Car():
         self.vel = vel
         self.angular_velocity = angular_velocity
 
+    def get_four_side(self):
+        """
+        The Math Calculation that find the 4 points of the car
+        :return: the 4 points of the car
+        """
+        top_right = self.pos + rotation(self.current_degree, np.array([BOX_WIDTH/2, -BOX_HEIGHT/2]))
+        top_left = self.pos + rotation(self.current_degree, np.array([-BOX_WIDTH / 2, -BOX_HEIGHT / 2]))
+        bottom_right = self.pos + rotation(self.current_degree, np.array([BOX_WIDTH / 2, BOX_HEIGHT / 2]))
+        bottom_left = self.pos + rotation(self.current_degree, np.array([-BOX_WIDTH / 2, BOX_HEIGHT / 2]))
+        return [top_right, top_left, bottom_right, bottom_left]
+
+    def center_point(self):
+        return self.pos[0], self.pos[1]
