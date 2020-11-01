@@ -1,5 +1,5 @@
 from Car import Car
-from GameUpdate import draw_car, draw_cardot, draw_tracks
+from GameUpdate import draw_car, draw_cardot, draw_tracks, check_all_collision
 from Constants import *
 import numpy as np
 import pygame
@@ -39,6 +39,7 @@ while run: # Game Loop
     draw_car(car, windows)
     draw_cardot(car, windows)
     draw_tracks(windows, inner_track, outer_track)
-
+    if check_all_collision(car, inner_track, outer_track):
+        car.pos = np.array([WINDOWS_WIDTH/2, WINDOWS_HEIGHT/2])
     pygame.display.update()
     pygame.display.flip()
