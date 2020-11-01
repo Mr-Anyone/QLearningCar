@@ -29,3 +29,19 @@ def draw_cardot(car, windows):
     for point in points:
         pygame.draw.rect(windows, ORANGE, (point[0], point[1], 5, 5)) # Drawing the four point of the car
     pygame.draw.rect(windows, ORANGE, (car.center_point()[0], car.center_point()[1], 1, 1))  # RECT Format (left, top, width, height)
+
+
+def draw_tracks(windows, inner_tracks, outer_tracks):
+    """
+    Drawing all the tracks in the car game
+    :param windows: The windows of the screen
+    :param inner_tracks: Points that are inside the track
+    :param outer_tracks: Points that are outside the track
+    """
+    if len(inner_tracks) >= 2:
+        pygame.draw.lines(windows, RED, False, inner_tracks)
+
+    if len(outer_tracks) >= 2:
+        pygame.draw.lines(windows, BLUE, False, outer_tracks)
+
+
