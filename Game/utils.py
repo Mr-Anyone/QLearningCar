@@ -22,14 +22,14 @@ def read_csv():
         file = csv.reader(f)
         for row in file:
             if row[0] and row[-1]:
-                inner.append((row[0], row[1]))
-                outer.append((row[2], row[3]))
+                inner.append((int(row[0]), int(row[1])))
+                outer.append((int(row[2]), int(row[3])))
 
             elif row[0] and not row[-1]:
-                inner.append((row[0], row[1]))
+                inner.append((int(row[0]), int(row[1])))
 
             else:
-                outer.append((row[2], row[3]))
+                outer.append((int(row[2]), int(row[3])))
 
         f.close()
     return outer, inner
