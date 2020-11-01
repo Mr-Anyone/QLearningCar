@@ -32,7 +32,7 @@ def save(inner, outer):
                 try:
                     file.writerow([inner[x][0], inner[x][1], outer[x][0], outer[x][1]])
                 except IndexError:
-                    file.writerow([outer[x][0], outer[x][1]])
+                    file.writerow([None, None, outer[x][0], outer[x][1]])
 
         f.close()
 
