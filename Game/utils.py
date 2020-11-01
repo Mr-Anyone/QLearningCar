@@ -33,5 +33,3 @@ def read_csv():
 
         f.close()
     return outer, inner
-outer, innter = read_csv()
-print("hi")
