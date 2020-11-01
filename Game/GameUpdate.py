@@ -1,5 +1,7 @@
 import pygame
+
 from Constants import *
+from utils import distance, interesction_point
 
 car_image = pygame.image.load(os.path.join(os.curdir, "Images", "Car.png"))
 
@@ -87,3 +89,58 @@ def check_all_collision(car, inner_tracks, outer_tracks):
         if collide(combo[0], combo[1], outer_tracks[0], outer_tracks[-1]):
             return True
     return False
+
+
+def get_data_from_sensor(car, windows, inner_track, outer_track):
+    """
+    Draw the line that the sensor hit
+    :param car: The car object
+    :param windows: The display to draw the line
+    :param inner_track: Points of the inner tracks
+    :param outer_track: Poitns of the outer tracks
+    :return: The intersection points
+    """
+    sensor_line = car.sensor_line()
+    result = []
+
+    for line in sensor_line:
+        _ = 100000000
+        intersection_cor = None
+        # Checking for inner_track
+        for i in range(1, len(inner_track)):
+            if collide(line[0], line[1], inner_track[i - 1], inner_track[i]):
+                _2 = interesction_point(line[0], line[1], inner_track[i - 1], inner_track[i])
+                if _ > distance(line[0], _2):
+                    _ = distance(line[0], _2)
+                    intersection_cor = _2
+
+        # Special Case the front and the end of the line in the inner track
+        if collide(line[0], line[1], inner_track[0], inner_track[-1]):
+            _2 = interesction_point(line[0], line[1], inner_track[0], inner_track[-1])
+            if _ > distance(line[0], _2):
+                _ = distance(line[0], _2)
+                intersection_cor = _2
+
+        # Checking for outer_track
+        for i in range(1, len(outer_track)):
+            if collide(line[0], line[1], outer_track[i - 1], outer_track[i]):
+                _2 = interesction_point(line[0], line[1], outer_track[i - 1], outer_track[i])
+                if _ > distance(line[0], _2):
+                    _ = distance(line[0], _2)
+                    intersection_cor = _2
+
+        # Special Case the front and the end of the line in the outer track
+        if collide(line[0], line[1], outer_track[0], outer_track[-1]):
+            _2 = interesction_point(line[0], line[1], outer_track[0], outer_track[-1])
+            if _ > distance(line[0], _2):
+                _ = distance(line[0], _2)
+                intersection_cor = _2
+
+        result.append(intersection_cor)
+
+    for point in result:
+        try:
+            pygame.draw.line(windows, BLUE, car.pos, point)
+        except Exception as e:
+            pass
+    return result
