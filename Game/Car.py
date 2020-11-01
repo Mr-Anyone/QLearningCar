@@ -13,6 +13,7 @@ class Car():
         self.current_degree = 0
         self.angular_velocity = 8
 
+        self.line_degree = [0, 45, 90, 135, 180, 225, 270 ,315] # The sensor angle for distance 45, 90, 135, 180, 225, 270 ,315
     def move_front(self):
         """
         Move the car forward and stuff
@@ -73,3 +74,16 @@ class Car():
 
     def center_point(self):
         return self.pos[0], self.pos[1]
+
+    def sensor_line(self):
+        """
+        Sensor line is a line that that car sees (a line to check for intersection)
+
+        8 Line in different degree from the center point [0, 45, 90, 135, 180, 225, 270 ,315]
+        :return: A line for checking intersection
+        """
+        reference_line = np.array([self.pos[0] + 1000, self.pos[1]])  # The reference has to be long to prevent no line from intersecting
+        line_points = []
+        for angle in self.line_degree:
+            line_points.append([self.pos, rotation(angle+self.current_degree, reference_line)])
+        return line_points
