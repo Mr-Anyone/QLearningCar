@@ -54,6 +54,13 @@ while run:
             get_inner = True
             time.sleep(0.5)
 
+    if keys[pygame.K_z]:
+        if get_inner:
+            inner_tracks.pop()
+        else:
+            outer_tracks.pop()
+        time.sleep(0.5)
+
     windows.fill((0, 0, 0))
     draw_car(car, windows)
     draw_tracks(windows, inner_tracks, outer_tracks)
