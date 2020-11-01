@@ -5,3 +5,4 @@ BOX_WIDTH = 50
 BOX_HEIGHT = 20
 
 ORANGE = (255, 95, 43)
+RED = (255, 0, 44)
