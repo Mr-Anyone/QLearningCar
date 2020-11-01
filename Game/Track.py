@@ -27,6 +27,14 @@ def save(inner, outer):
                     file.writerow([inner[x][0], inner[x][1], outer[x][0], outer[x][1]])
                 except IndexError:
                     file.writerow([inner[x][0], inner[x][1]])
+        else:
+            for x in range(len(outer)):
+                try:
+                    file.writerow([inner[x][0], inner[x][1], outer[x][0], outer[x][1]])
+                except IndexError:
+                    file.writerow([outer[x][0], outer[x][1]])
+
+        f.close()
 
 car = Car(pos=np.array([WINDOWS_WIDTH / 2, WINDOWS_HEIGHT / 2]))
 while run:
