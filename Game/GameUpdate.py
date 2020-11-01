@@ -1,4 +1,3 @@
-import os
 import pygame
 from Constants import *
 
@@ -27,8 +26,9 @@ def draw_cardot(car, windows):
     """
     points = car.get_four_side()
     for point in points:
-        pygame.draw.rect(windows, ORANGE, (point[0], point[1], 5, 5)) # Drawing the four point of the car
-    pygame.draw.rect(windows, ORANGE, (car.center_point()[0], car.center_point()[1], 1, 1))  # RECT Format (left, top, width, height)
+        pygame.draw.rect(windows, ORANGE, (point[0], point[1], 5, 5))  # Drawing the four point of the car
+    pygame.draw.rect(windows, ORANGE,
+                     (car.center_point()[0], car.center_point()[1], 1, 1))  # RECT Format (left, top, width, height)
 
 
 def draw_tracks(windows, inner_tracks, outer_tracks):
@@ -44,6 +44,7 @@ def draw_tracks(windows, inner_tracks, outer_tracks):
     if len(outer_tracks) >= 2:
         pygame.draw.lines(windows, BLUE, True, outer_tracks)
 
+
 def collide(p1, p2, p3, p4):
     """
     The function checks weather the 4 points collides
@@ -55,33 +56,34 @@ def collide(p1, p2, p3, p4):
     x3, y3 = p3[0], p3[1]
     x4, y4 = p4[0], p4[1]
 
-    ua = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
-    ub = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+    ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1))
+    ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1))
 
-    if ua >= 0 and ua <= 1 and ub >=0 and ub <= 1:
+    if ua >= 0 and ua <= 1 and ub >= 0 and ub <= 1:
         return True
 
     return False
+
 
 def check_all_collision(car, inner_tracks, outer_tracks):
     """
     Checking if collision happens with the given car and tracks
     """
-    tr, tl, br, bl = car.get_four_side() # Top right, top left, bottom right, bottom left
-    check_combos = [[tr, tl], [tr, br], [tl, bl], [bl, br]] # A list of points to check
+    tr, tl, br, bl = car.get_four_side()  # Top right, top left, bottom right, bottom left
+    check_combos = [[tr, tl], [tr, br], [tl, bl], [bl, br]]  # A list of points to check
     for combo in check_combos:
-        for i in range(1, len(inner_tracks)):# Checking for inner track
-            if collide(combo[0], combo[1], inner_tracks[i -1], inner_tracks[i]):
+        for i in range(1, len(inner_tracks)):  # Checking for inner track
+            if collide(combo[0], combo[1], inner_tracks[i - 1], inner_tracks[i]):
                 return True
 
-        if collide(combo[0], combo[1], inner_tracks[0], inner_tracks[-1]): # Checking the first point with the last point it will not be checked in the for loop above
-                return True
+        if collide(combo[0], combo[1], inner_tracks[0], inner_tracks[
+            -1]):  # Checking the first point with the last point it will not be checked in the for loop above
+            return True
 
-        for i in range(1, len(outer_tracks)):# Checking for outer track
-            if collide(combo[0], combo[1], outer_tracks[i-1], outer_tracks[i]):
+        for i in range(1, len(outer_tracks)):  # Checking for outer track
+            if collide(combo[0], combo[1], outer_tracks[i - 1], outer_tracks[i]):
                 return True
 
         if collide(combo[0], combo[1], outer_tracks[0], outer_tracks[-1]):
             return True
     return False
-
