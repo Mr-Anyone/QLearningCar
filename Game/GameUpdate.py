@@ -39,9 +39,43 @@ def draw_tracks(windows, inner_tracks, outer_tracks):
     :param outer_tracks: Points that are outside the track
     """
     if len(inner_tracks) >= 2:
-        pygame.draw.lines(windows, RED, False, inner_tracks)
+        pygame.draw.lines(windows, RED, True, inner_tracks)
 
     if len(outer_tracks) >= 2:
-        pygame.draw.lines(windows, BLUE, False, outer_tracks)
+        pygame.draw.lines(windows, BLUE, True, outer_tracks)
 
+def collide(p1, p2, p3, p4):
+    """
+    The function checks weather the 4 points collides
+    Tutorial Page: http://jeffreythompson.org/collision-detection/line-line.php
+    :return: True means collide False Means Not Collide
+    """
+    ua = ((p4[0]-p3[0])*(p1[1]-p3[1]) - (p4[1]-p3[1])*(p1[0]-p3[0]))/((p4[1]-p3[1])*(p2[0]-p1[0]) - (p4[0]-p3[0])*(p2[1]-p2[1]))
+    ub = ((p2[0]-p1[0])*(p1[1]-p3[1]) - (p2[1]-p1[1])*(p1[0]-p3[0]))/((p4[1]-p3[1])*(p2[0]-p1[0]) - (p4[0]-p3[0])*(p2[1]-p1[1]))
+    if ua >= 0 and ua <= 1 and ub >=0 and ub <= 1:
+        return True
+
+    return False
+
+def check_all_collision(car, inner_tracks, outer_tracks):
+    """
+    Checking if collision happens with the given car and tracks
+    """
+    tr, tl, br, bl = car.get_four_side() # Top right, top left, bottom right, bottom left
+    check_combos = [[tr, tl], [tr, br], [tl, bl], [bl, br]] # A list of points to check
+    for combo in check_combos:
+        for i in range(1, len(inner_tracks)):# Checking for inner track
+            if collide(combo[0], combo[1], inner_tracks[i -1], inner_tracks[i]):
+                return True
+
+        if collide(combo[0], combo[1], inner_tracks[0], inner_tracks[-1]): # Checking the first point with the last point it will not be checked in the for loop above
+                return True
+
+        for i in range(1, len(outer_tracks)):# Checking for outer track
+            if collide(combo[0], combo[1], outer_tracks[i-1], outer_tracks[i]):
+                return True
+
+        if collide(combo[0], combo[1], outer_tracks[0], outer_tracks[-1]):
+            return True
+    return False
 
