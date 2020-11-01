@@ -1,5 +1,5 @@
 from Car import Car
-from GameUpdate import draw_car
+from GameUpdate import draw_car, draw_cardot
 from Constants import *
 import numpy as np
 import pygame
@@ -35,6 +35,7 @@ while run: # Game Loop
 
     windows.fill((255,255,255)) # Drawing the background
     draw_car(car, windows)
+    draw_cardot(car, windows)
 
     pygame.display.update()
     pygame.display.flip()
