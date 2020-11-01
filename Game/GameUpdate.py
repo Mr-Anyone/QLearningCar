@@ -102,6 +102,7 @@ def get_data_from_sensor(car, windows, inner_track, outer_track):
     """
     sensor_line = car.sensor_line()
     result = []
+    distances = []
 
     for line in sensor_line:
         _ = 100000000
@@ -137,10 +138,8 @@ def get_data_from_sensor(car, windows, inner_track, outer_track):
                 intersection_cor = _2
 
         result.append(intersection_cor)
+        distances.append(_)
 
     for point in result:
-        try:
-            pygame.draw.line(windows, BLUE, car.pos, point)
-        except Exception as e:
-            pass
+        pygame.draw.line(windows, BLUE, car.pos, point)
     return result
