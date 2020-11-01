@@ -21,15 +21,15 @@ def read_csv():
     with open(TRACK_DIR, 'r') as f:
         file = csv.reader(f)
         for row in file:
-            if row[0] and row[-1]:
+            try:
                 inner.append((int(row[0]), int(row[1])))
                 outer.append((int(row[2]), int(row[3])))
+            except IndexError:
+                if len(row) == 4:
+                    outer.append((int(row[2]), int(row[3])))
+                else:
+                    inner.append((int(row[0]), int(row[1])))
 
-            elif row[0] and not row[-1]:
-                inner.append((int(row[0]), int(row[1])))
-
-            else:
-                outer.append((int(row[2]), int(row[3])))
 
         f.close()
     return outer, inner
