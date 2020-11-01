@@ -1,5 +1,5 @@
 from Car import Car
-from GameUpdate import draw_car, draw_cardot, draw_tracks, check_all_collision
+from GameUpdate import draw_car, draw_cardot, draw_tracks, check_all_collision, get_data_from_sensor
 from Constants import *
 import numpy as np
 import pygame
@@ -36,11 +36,16 @@ while run: # Game Loop
         car.turn_right()
 
     windows.fill((255,255,255)) # Drawing the background
-    draw_car(car, windows)
-    draw_cardot(car, windows)
-    draw_tracks(windows, inner_track, outer_track)
-    if check_all_collision(car, inner_track, outer_track):
+
+    if check_all_collision(car, inner_track, outer_track): # Check for collision
         print("Collision")
         car.pos = np.array([WINDOWS_WIDTH/2, WINDOWS_HEIGHT/2])
+
+    get_data_from_sensor(car, windows, inner_track, outer_track)# Calculate the Car Hit Point
+
+    draw_car(car, windows) # Draw the car
+    draw_cardot(car, windows) # Draw the hit box
+    draw_tracks(windows, inner_track, outer_track) # Draw the car track
+
     pygame.display.update()
     pygame.display.flip()
