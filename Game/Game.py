@@ -40,6 +40,7 @@ while run: # Game Loop
     draw_cardot(car, windows)
     draw_tracks(windows, inner_track, outer_track)
     if check_all_collision(car, inner_track, outer_track):
+        print("Collision")
         car.pos = np.array([WINDOWS_WIDTH/2, WINDOWS_HEIGHT/2])
     pygame.display.update()
     pygame.display.flip()
