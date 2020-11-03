@@ -141,5 +141,8 @@ def get_data_from_sensor(car, windows, inner_track, outer_track):
         distances.append(_)
 
     for point in result:
-        pygame.draw.line(windows, BLUE, car.pos, point)
+        try:
+            pygame.draw.line(windows, BLUE, car.pos, point)
+        except TypeError as e: # No collision in a certain degree
+            pass
     return result
