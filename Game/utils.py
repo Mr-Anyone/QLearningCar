@@ -24,12 +24,13 @@ def read_csv():
             try:
                 inner.append((int(row[0]), int(row[1])))
                 outer.append((int(row[2]), int(row[3])))
-            except IndexError:
+            except IndexError as e:
                 if len(row) == 4:
                     outer.append((int(row[2]), int(row[3])))
                 else:
                     inner.append((int(row[0]), int(row[1])))
-
+            except ValueError as e: # More outer than inner
+                outer.append((int(row[2]), int(row[3])))
 
         f.close()
     return outer, inner
