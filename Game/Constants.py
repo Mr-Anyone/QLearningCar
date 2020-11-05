@@ -12,3 +12,8 @@ RED = (255, 0, 44)
 BLUE = (0, 0, 255)
 
 TRACK_DIR = os.path.join(os.curdir, "Images", "Track.csv")
+
+ACTION_RIGHT = "RIGHT"
+ACTION_LEFT = "LEFT"
+ACTION_STOP = "STOP"
+ACTION_FRONT = "FRONT"
