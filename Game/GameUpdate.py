@@ -91,7 +91,7 @@ def check_all_collision(car, inner_tracks, outer_tracks):
     return False
 
 
-def get_data_from_sensor(car, windows, inner_track, outer_track):
+def get_data_from_sensor(car, windows, inner_track, outer_track, draw=True):
     """
     Draw the line that the sensor hit
     :param car: The car object
@@ -140,9 +140,10 @@ def get_data_from_sensor(car, windows, inner_track, outer_track):
         result.append(intersection_cor)
         distances.append(_)
 
-    for point in result:
-        try:
-            pygame.draw.line(windows, BLUE, car.pos, point)
-        except TypeError as e: # No collision in a certain degree
-            pass
+    if draw:
+        for point in result:
+            try:
+                pygame.draw.line(windows, BLUE, car.pos, point)
+            except TypeError as e: # No collision in a certain degree
+                pass
     return result
