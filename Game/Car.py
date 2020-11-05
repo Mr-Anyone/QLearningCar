@@ -13,7 +13,7 @@ class Car():
         self.current_degree = 0
         self.angular_velocity = 8
 
-        self.line_degree = [0, 45, 90, 135, 180, 225, 270 ,315] # The sensor angle for distance 45, 90, 135, 180, 225, 270 ,315
+        self.line_degree = [0, 45, 90, 135, 180, 225, 270,315]  # The sensor angle for distance 45, 90, 135, 180, 225, 270 ,315
     def move_front(self):
         """
         Move the car forward and stuff
