@@ -1,6 +1,7 @@
 import numpy as np
 from Constants import TRACK_DIR
 import csv
+import pandas
 
 
 def rotation(degree, vet):
@@ -19,8 +20,9 @@ def rotation(degree, vet):
 def read_csv():
     outer, inner = [], []
     with open(TRACK_DIR, 'r') as f:
-        file = csv.reader(f)
-        for row in file:
+        file = pandas.read_csv(f)
+        for row in file.values:
+            print(row)
             try:
                 inner.append((int(row[0]), int(row[1])))
                 outer.append((int(row[2]), int(row[3])))
@@ -54,3 +56,5 @@ def distance(p1, p2):
     :return: the shortest distance between two points using a^2 + b^2 = c^2
     """
     return np.sqrt((p1[0]-p2[0])**2 + (p1[1] - p2[1])**2)
+
+read_csv()
