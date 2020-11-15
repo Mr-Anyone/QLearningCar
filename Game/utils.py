@@ -22,7 +22,6 @@ def read_csv():
     with open(TRACK_DIR, 'r') as f:
         file = pandas.read_csv(f)
         for row in file.values:
-            print(row)
             try:
                 inner.append((int(row[0]), int(row[1])))
                 outer.append((int(row[2]), int(row[3])))
